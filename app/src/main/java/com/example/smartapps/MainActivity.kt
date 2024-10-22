@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable("home") { HomeScreen(navController) }
-                        composable("profile") { ProfileScreen() }
+                        composable("profile") { ProfileScreen(navController) }
                         composable("set_reminder") { SetReminderScreen() }
                         composable("map") { MapScreen() }
                     }
@@ -52,6 +52,6 @@ fun HomeScreenPreview() {
     SmartappsTheme {
         val navController = rememberNavController()
 //        HomeScreen(navController)
-        ProfileScreen()
+        ProfileScreen(navController)
     }
 }

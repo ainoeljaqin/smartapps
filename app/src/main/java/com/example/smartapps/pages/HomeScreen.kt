@@ -38,34 +38,26 @@ fun HomeScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(32.dp))
 
         // Survey Form Button
-        Button(onClick = {
-            navController.navigate("survey_form")
-        }, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Survey Form")
-        }
+        Button(
+            onClick = { navController.navigate("survey_form") },
+            modifier = Modifier.fillMaxWidth()) { Text(text = "Survey Form") }
         Spacer(modifier = Modifier.height(16.dp))
 
         // Reminder Settings Button
-        Button(onClick = {
-            navController.navigate("set_reminder")
-        }, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Reminder Settings")
-        }
+        Button(
+            onClick = { navController.navigate("set_reminder") },
+            modifier = Modifier.fillMaxWidth()) { Text(text = "Reminder Settings") }
         Spacer(modifier = Modifier.height(16.dp))
 
         // Economic Map Button
-        Button(onClick = {
-            navController.navigate("map")
-        }, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Economic Map")
-        }
+        Button(
+            onClick = { navController.navigate("map") },
+            modifier = Modifier.fillMaxWidth()) { Text(text = "Economic Map") }
         Spacer(modifier = Modifier.height(16.dp))
 
         // Profile Button
-        Button(onClick = {
-            navController.navigate("profile")
-        }, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Profile")
-        }
+        Button(
+            onClick = { navController.navigate("profile") },
+            modifier = Modifier.fillMaxWidth()) { Text(text = "Profile") }
     }
 }

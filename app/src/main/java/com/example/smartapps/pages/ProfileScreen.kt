@@ -15,10 +15,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.smartapps.R
-import com.example.smartapps.ui.theme.SmartappsTheme
+import com.example.smartapps.ui.theme.PrimaryButton
+import androidx.navigation.NavController
+
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -95,7 +97,7 @@ fun ProfileScreen() {
         Button(
             onClick = { /* TODO: Implement action */ },
             modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+            colors = ButtonDefaults.buttonColors(containerColor = PrimaryButton)
         ) {
             Text(text = "Change Password")
         }
@@ -117,7 +119,7 @@ fun ProfileScreen() {
         Button(
             onClick = { /* TODO: Implement action */ },
             modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+            colors = ButtonDefaults.buttonColors(containerColor = PrimaryButton)
         ) {
             Text(text = "Save Changes")
         }
@@ -126,7 +128,7 @@ fun ProfileScreen() {
 
         // Cancel Button
         OutlinedButton(
-            onClick = { /* TODO: Implement action */ },
+            onClick = { navController.navigate("home") },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Cancel")
