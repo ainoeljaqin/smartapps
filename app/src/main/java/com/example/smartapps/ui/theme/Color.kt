@@ -2,11 +2,11 @@ package com.example.smartapps.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+val PrimaryDarkColor = Color(0xFFFFFFFF)
+val SecondaryDarkColor = Color(0xFFFFFFFF)
+val TertiaryDarkColor = Color(0xFFFFFFFF)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
-val PrimaryButton = Color(0xFF1851E2)
+val PrimaryLightColor = Color(0xFF2196F3)
+val SecondaryLightColor = Color(0xFF4CB6E6)
+val TertiaryLightColor = Color(0xFF84D9FF)
+val PrimaryButtonColor = Color(0xFF2196F3)

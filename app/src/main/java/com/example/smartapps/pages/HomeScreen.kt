@@ -1,15 +1,20 @@
 package com.example.smartapps.pages
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.smartapps.R
+import com.example.smartapps.ui.theme.PrimaryButtonColor
 
 @Composable
 fun HomeScreen(navController: NavController) {
@@ -20,18 +25,19 @@ fun HomeScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = "SMART",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold
+        Image(
+            painter = painterResource(id = R.drawable.logo),
+            contentDescription = "Logo SMART",
+            modifier = Modifier
+                .width(200.dp),
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(12.dp))
         Text(
             text = "Economic Survey",
-            fontSize = 20.sp,
+            fontSize = 18.sp,
             fontWeight = FontWeight.Bold
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         Text(text = "Understand community needs.")
         Text(text = "Contribute to local development.")
         Text(text = "Confidential participation.")
@@ -39,25 +45,41 @@ fun HomeScreen(navController: NavController) {
 
         // Survey Form Button
         Button(
-            onClick = { navController.navigate("survey_form") },
-            modifier = Modifier.fillMaxWidth()) { Text(text = "Survey Form") }
+            onClick = { navController.navigate("job_survey") },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = PrimaryButtonColor)
+        ){
+            Text(text = "Survey Form")
+        }
         Spacer(modifier = Modifier.height(16.dp))
 
         // Reminder Settings Button
         Button(
             onClick = { navController.navigate("set_reminder") },
-            modifier = Modifier.fillMaxWidth()) { Text(text = "Reminder Settings") }
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = PrimaryButtonColor)
+        ){
+            Text(text = "Reminder Settings")
+        }
         Spacer(modifier = Modifier.height(16.dp))
 
         // Economic Map Button
         Button(
             onClick = { navController.navigate("map") },
-            modifier = Modifier.fillMaxWidth()) { Text(text = "Economic Map") }
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = PrimaryButtonColor)
+        ){
+            Text(text = "Map")
+        }
         Spacer(modifier = Modifier.height(16.dp))
 
         // Profile Button
         Button(
             onClick = { navController.navigate("profile") },
-            modifier = Modifier.fillMaxWidth()) { Text(text = "Profile") }
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = PrimaryButtonColor)
+        ){
+            Text(text = "Profile")
+        }
     }
 }
