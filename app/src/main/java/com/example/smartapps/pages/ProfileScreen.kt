@@ -5,6 +5,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -15,12 +19,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.smartapps.R
-import com.example.smartapps.ui.theme.PrimaryButton
+import com.example.smartapps.ui.theme.PrimaryButtonColor
 import androidx.navigation.NavController
+import com.example.smartapps.components.BackButton
+import com.example.smartapps.components.SubmitButton
 
 
 @Composable
 fun ProfileScreen(navController: NavController) {
+    var textPhoneNumber by remember { mutableStateOf("") }
+    var textEmail by remember { mutableStateOf("") }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -75,8 +83,8 @@ fun ProfileScreen(navController: NavController) {
 
         // Phone Number Field
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = textPhoneNumber,
+            onValueChange = { textPhoneNumber = it },
             label = { Text("Phone Number") },
             modifier = Modifier.fillMaxWidth()
         )
@@ -85,53 +93,59 @@ fun ProfileScreen(navController: NavController) {
 
         // Email Address Field
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = textEmail,
+            onValueChange = { textEmail = it },
             label = { Text("Email Address") },
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
         // Change Password Button
-        Button(
-            onClick = { /* TODO: Implement action */ },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = PrimaryButton)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = "Change Password")
+            Spacer(modifier = Modifier.weight(1f))
+            Button(
+                onClick = { /* TODO: Implement action */ },
+                modifier = Modifier
+                    .align(Alignment.CenterVertically),
+                colors = ButtonDefaults.outlinedButtonColors()
+            ) {
+                Text(
+                    text = "Change Password",
+                    color = Color.Gray
+                )
+            }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
-        // Set Survey Preferences Button
-        Button(
-            onClick = { /* TODO: Implement action */ },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.outlinedButtonColors()
-        ) {
-            Text(text = "Set Survey Preferences")
-        }
+//        // Set Survey Preferences Button
+//        Button(
+//            onClick = { /* TODO: Implement action */ },
+//            modifier = Modifier.fillMaxWidth(),
+//            colors = ButtonDefaults.outlinedButtonColors()
+//        ) {
+//            Text(text = "Set Survey Preferences")
+//        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         // Save Changes Button
-        Button(
-            onClick = { /* TODO: Implement action */ },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = PrimaryButton)
-        ) {
-            Text(text = "Save Changes")
-        }
+        SubmitButton(
+            text = "Save Changes",
+            onClick = { navController.navigate("home") }
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         // Cancel Button
-        OutlinedButton(
-            onClick = { navController.navigate("home") },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(text = "Cancel")
-        }
+        BackButton(
+            text = "Cancel",
+            onClickBack = { navController.navigate("home") }
+        )
     }
 }

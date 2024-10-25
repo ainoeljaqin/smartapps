@@ -12,10 +12,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.smartapps.pages.ExpenseSurveyScreen
 import com.example.smartapps.pages.HomeScreen
 import com.example.smartapps.pages.MapScreen
 import com.example.smartapps.pages.ProfileScreen
 import com.example.smartapps.pages.SetReminderScreen
+import com.example.smartapps.pages.IncomeSurveyScreen
+import com.example.smartapps.pages.JobSurveyScreen
+import com.example.smartapps.pages.ServiceAccessSurveyScreen
 import com.example.smartapps.ui.theme.SmartappsTheme
 
 class MainActivity : ComponentActivity() {
@@ -35,6 +39,10 @@ class MainActivity : ComponentActivity() {
                         composable("profile") { ProfileScreen(navController) }
                         composable("set_reminder") { SetReminderScreen() }
                         composable("map") { MapScreen() }
+                        composable("job_survey") { JobSurveyScreen(navController) }
+                        composable("income_survey") { IncomeSurveyScreen(navController) }
+                        composable("expense_survey") { ExpenseSurveyScreen(navController) }
+                        composable("service_access_survey") { ServiceAccessSurveyScreen(navController) }
                     }
                 }
             }
@@ -47,7 +55,8 @@ class MainActivity : ComponentActivity() {
 fun HomeScreenPreview() {
     SmartappsTheme {
         val navController = rememberNavController()
-//        HomeScreen(navController)
-        ProfileScreen(navController)
+        HomeScreen(navController)
+//        IncomeSurveyScreen(navController)
+//        ExpenseSurveyScreen(navController)
     }
 }
