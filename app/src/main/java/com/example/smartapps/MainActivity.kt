@@ -1,5 +1,6 @@
 package com.example.smartapps
 
+import WelcomeScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+
 import com.example.smartapps.pages.ExpenseSurveyScreen
 import com.example.smartapps.pages.HomeScreen
 import com.example.smartapps.pages.MapScreen
@@ -19,6 +21,8 @@ import com.example.smartapps.pages.ProfileScreen
 import com.example.smartapps.pages.SetReminderScreen
 import com.example.smartapps.pages.IncomeSurveyScreen
 import com.example.smartapps.pages.JobSurveyScreen
+import com.example.smartapps.pages.Login.LoginScreen
+import com.example.smartapps.pages.Register.RegisterScreen
 import com.example.smartapps.pages.ServiceAccessSurveyScreen
 import com.example.smartapps.ui.theme.SmartappsTheme
 
@@ -32,9 +36,12 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = "home",
+                        startDestination = "welcome",
                         modifier = Modifier.padding(innerPadding)
                     ) {
+                        composable("welcome") { WelcomeScreen(navController) }
+                        composable("register") { RegisterScreen(navController) }
+                        composable("login") { LoginScreen(navController) }
                         composable("home") { HomeScreen(navController) }
                         composable("profile") { ProfileScreen(navController) }
                         composable("set_reminder") { SetReminderScreen() }
@@ -55,8 +62,9 @@ class MainActivity : ComponentActivity() {
 fun HomeScreenPreview() {
     SmartappsTheme {
         val navController = rememberNavController()
-        HomeScreen(navController)
+//        HomeScreen(navController)
 //        IncomeSurveyScreen(navController)
 //        ExpenseSurveyScreen(navController)
+        WelcomeScreen(navController)
     }
 }

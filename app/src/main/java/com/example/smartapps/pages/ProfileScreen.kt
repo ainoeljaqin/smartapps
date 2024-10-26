@@ -19,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.smartapps.R
-import com.example.smartapps.ui.theme.PrimaryButtonColor
 import androidx.navigation.NavController
 import com.example.smartapps.components.BackButton
 import com.example.smartapps.components.SubmitButton
