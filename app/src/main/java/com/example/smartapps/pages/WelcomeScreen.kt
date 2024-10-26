@@ -17,7 +17,6 @@ import com.example.smartapps.R
 import com.example.smartapps.components.SubmitButton
 import com.example.smartapps.ui.theme.PrimaryButtonColor
 import com.google.accompanist.pager.*
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
