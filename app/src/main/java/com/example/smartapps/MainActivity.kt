@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = "welcome",
+                        startDestination = "map", // Perbaiki kesalahan di sini
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable("welcome") { WelcomeScreen(navController) }
@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
                         composable("home") { HomeScreen(navController) }
                         composable("profile") { ProfileScreen(navController) }
                         composable("set_reminder") { SetReminderScreen() }
-                        composable("map") { MapScreen() }
+                        composable("map") { MapScreen(navController) }
                         composable("job_survey") { JobSurveyScreen(navController) }
                         composable("income_survey") { IncomeSurveyScreen(navController) }
                         composable("expense_survey") { ExpenseSurveyScreen(navController) }
@@ -62,9 +62,10 @@ class MainActivity : ComponentActivity() {
 fun HomeScreenPreview() {
     SmartappsTheme {
         val navController = rememberNavController()
-//        HomeScreen(navController)
-//        IncomeSurveyScreen(navController)
-//        ExpenseSurveyScreen(navController)
-        WelcomeScreen(navController)
+        // Uncomment if you want to preview different screens
+        // HomeScreen(navController)
+        // IncomeSurveyScreen(navController)
+        // ExpenseSurveyScreen(navController)
+        MapScreen(navController)
     }
 }

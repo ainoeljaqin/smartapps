@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Smartapps"
         tools:targetApi="31">
+
+        <!-- API Key untuk Google Maps -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC2TYlgrGOO0Cxp1hzmia7OPx4oLoZWV5U" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -19,7 +25,6 @@
             android:theme="@style/Theme.Smartapps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
