@@ -132,7 +132,9 @@ fun ExpenseSurveyScreen(navController: NavController) {
     var selectedFood by remember { mutableStateOf("") }
     var selectedEducation by remember { mutableStateOf("") }
     var selectedHealth by remember { mutableStateOf("") }
-    var selectedOther by remember { mutableStateOf("") }
+    var selectedTransportationTax by remember { mutableStateOf("") }
+    var selectedPBBTax by remember { mutableStateOf("") }
+    var selectedElecttricity by remember { mutableStateOf("") }
 
     // List dropdown
     val expensesOptionsFood = listOf(
@@ -153,11 +155,23 @@ fun ExpenseSurveyScreen(navController: NavController) {
         "Rp.3.000.000 - Rp.5.000.000",
         "> Rp.5.000.000",
     )
-    val expensesOptionsOther = listOf(
+    val optionsTransportationTax = listOf(
+        "< Rp.250.000",
+        "Rp.250.000 - Rp.500.000",
+        "Rp.500.000 - Rp.1.000.000",
+        "> Rp.1.000.000",
+    )
+    val optionsPBBTax = listOf(
         "< Rp.2.000.000",
         "Rp.2.000.000 - Rp.3.000.000",
         "Rp.3.000.000 - Rp.5.000.000",
         "> Rp.5.000.000",
+    )
+    val optionsElectricity = listOf(
+        "< Rp.50.000",
+        "Rp.50.000 - Rp.150.000",
+        "Rp.150.000 - Rp.250.000",
+        "> Rp.250.000",
     )
 
     Scaffold(
@@ -222,13 +236,35 @@ fun ExpenseSurveyScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Dropdown for Other
+            // Dropdown for Transportation Tax
             DropdownInputField(
-                label = "Lainnya",
-                selectedOption = selectedOther,
-                options = expensesOptionsOther,
-                onOptionSelected = { selectedOther = it }
+                label = "Pajak Transportasi",
+                selectedOption = selectedTransportationTax,
+                options = optionsTransportationTax,
+                onOptionSelected = { selectedTransportationTax = it }
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Dropdown for PBB Tax
+            DropdownInputField(
+                label = "Pajak PBB",
+                selectedOption = selectedPBBTax,
+                options = optionsPBBTax,
+                onOptionSelected = { selectedPBBTax = it }
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Dropdown for Electricity
+            DropdownInputField(
+                label = "Listrik per bulan",
+                selectedOption = selectedElecttricity,
+                options = optionsElectricity,
+                onOptionSelected = { selectedElecttricity = it }
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
