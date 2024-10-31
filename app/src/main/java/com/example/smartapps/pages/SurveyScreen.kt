@@ -272,7 +272,6 @@ fun ExpenseSurveyScreen(navController: NavController) {
 @Composable
 fun ServiceAccessSurveyScreen(navController: NavController) {
     var aksesKeuangan by remember { mutableStateOf(false) }
-    var tabungan by remember { mutableStateOf(false) }
     var aksesKesehatan by remember { mutableStateOf(false) }
     var bantuanPemerintah by remember { mutableStateOf(false) }
 
@@ -312,12 +311,6 @@ fun ServiceAccessSurveyScreen(navController: NavController) {
                 label = "Akses terhadap layanan keuangan.",
                 isChecked = aksesKeuangan,
                 onCheckedChange = { aksesKeuangan = it }
-            )
-
-            CheckboxWithLabel(
-                label = "Tabungan.",
-                isChecked = tabungan,
-                onCheckedChange = { tabungan = it }
             )
 
             CheckboxWithLabel(
