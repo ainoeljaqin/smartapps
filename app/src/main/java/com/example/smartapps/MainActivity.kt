@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                         composable("login") { LoginScreen(navController) }
                         composable("home") { HomeScreen(navController) }
                         composable("profile") { ProfileScreen(navController) }
-                        composable("set_reminder") { SetReminderScreen() }
+                        composable("set_reminder") { SetReminderScreen(navController) }
                         composable("map") { MapScreen() }
                         composable("job_survey") { JobSurveyScreen(navController) }
                         composable("income_survey") { IncomeSurveyScreen(navController) }
@@ -65,6 +65,6 @@ fun HomeScreenPreview() {
 //        HomeScreen(navController)
 //        IncomeSurveyScreen(navController)
 //        ExpenseSurveyScreen(navController)
-        WelcomeScreen(navController)
+        SetReminderScreen(navController)
     }
 }
