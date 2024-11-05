@@ -59,7 +59,14 @@ fun LoginScreen(navController: NavController) {
 
         SubmitButton(
             text = "Login",
-            onClick = { navController.navigate("") }
+            onClick = {
+                if (email=="user" && password=="user"){
+                    navController.navigate("home")
+                } else if (email=="admin" && password=="admin") {
+                    navController.navigate("dasboard_admin")
+                }
+
+            }
         )
 
         Spacer(modifier = Modifier.height(8.dp))

@@ -13,6 +13,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.smartapps.Model.User
+import com.example.smartapps.Model.UserDetail
+import com.example.smartapps.pages.Admin.AdminDashboard
+import com.example.smartapps.pages.Admin.UserDetailPage
 
 import com.example.smartapps.pages.ExpenseSurveyScreen
 import com.example.smartapps.pages.HomeScreen
@@ -33,6 +37,32 @@ class MainActivity : ComponentActivity() {
         setContent {
             SmartappsTheme {
                 val navController = rememberNavController()
+                val users = listOf(
+                    User("Alice", "alice@example.com", "Active"),
+                    User("Bob", "bob@example.com", "Inactive"),
+                    User("Charlie", "charlie@example.com", "Active"),
+                    User("Dave", "dave@example.com", "Inactive"),
+                )
+                val pengeluaran = mapOf(
+                    "Makanan" to "Rp 1,000,000",
+                    "Pendidikan" to "Rp 500,000",
+                    "Kesehatan" to "Rp 200,000",
+                    "Pajak Transportasi" to "Rp 150,000",
+                    "Pajak PBB" to "Rp 300,000",
+                    "Listrik per bulan" to "Rp 250,000"
+                )
+                val aksesLayanan = mapOf(
+                    "Akses layanan kesehatan" to true,
+                    "Akses layanan Keuangan" to false,
+                    "Bantuan Pemerintah" to true
+                )
+                val userDetail = UserDetail(
+                    name = "Alice",
+                    pekerjaan = "Guru",
+                    pendapatan = "Rp 5,000,000",
+                    pengeluaran = pengeluaran,
+                    aksesLayanan = aksesLayanan
+                )
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
@@ -50,6 +80,11 @@ class MainActivity : ComponentActivity() {
                         composable("income_survey") { IncomeSurveyScreen(navController) }
                         composable("expense_survey") { ExpenseSurveyScreen(navController) }
                         composable("service_access_survey") { ServiceAccessSurveyScreen(navController) }
+                        composable("dasboard_admin") { AdminDashboard(users, navController) }
+                        composable("detail_admin") { UserDetailPage(
+                            userDetail = userDetail,
+                            navController
+                        ) }
                     }
                 }
             }
