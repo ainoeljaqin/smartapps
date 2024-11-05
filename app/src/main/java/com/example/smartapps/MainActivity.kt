@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = "map", // Perbaiki kesalahan di sini
+                        startDestination = "welcome",
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable("welcome") { WelcomeScreen(navController) }
@@ -63,9 +63,9 @@ fun HomeScreenPreview() {
     SmartappsTheme {
         val navController = rememberNavController()
         // Uncomment if you want to preview different screens
-        // HomeScreen(navController)
-        // IncomeSurveyScreen(navController)
-        // ExpenseSurveyScreen(navController)
-        MapScreen(navController)
+//        HomeScreen(navController)
+//        IncomeSurveyScreen(navController)
+//        ExpenseSurveyScreen(navController)
+        WelcomeScreen(navController)
     }
 }
