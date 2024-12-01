@@ -6,6 +6,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,7 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.smartapps.Model.Survey
 import com.example.smartapps.Model.UserDetail
+import com.example.smartapps.Model.UserViewModel
 import com.example.smartapps.components.BackButton
 import com.example.smartapps.components.admin.IncomeCard
 import com.example.smartapps.components.admin.DetailSection
@@ -25,9 +32,21 @@ import com.example.smartapps.components.admin.AksesLayananItem
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserDetailPage(
-    userDetail: UserDetail,
-    navController: NavController
+    userId: Int,
+    navController: NavController,
+    viewModel: UserViewModel
 ) {
+    var survey by remember { mutableStateOf<Survey?>(null) }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+
+    LaunchedEffect(userId) {
+        viewModel.fetchUserSurvey(userId, onSuccess = {
+            survey = it
+        }, onError = {
+            errorMessage = it
+        })
+    }
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -63,17 +82,20 @@ fun UserDetailPage(
                         )
                         Spacer(modifier = Modifier.width(12.dp))
                         Column {
-                            Text(
-                                text = userDetail.name,
-                                fontSize = 24.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color(0xFF2196F3)
-                            )
-                            Text(
-                                text = userDetail.pekerjaan,
-                                fontSize = 16.sp,
-                                color = Color.Gray
-                            )
+                            survey?.let {
+                                Text(
+                                    text = it.nama_lengkap,
+                                    fontSize = 24.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color(0xFF2196F3)
+                                )
+
+                                Text(
+                                    text = it.pekerjaan,
+                                    fontSize = 16.sp,
+                                    color = Color.Gray
+                                )
+                            }
                         }
                     }
                 }
@@ -81,7 +103,7 @@ fun UserDetailPage(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            IncomeCard(title = "Pendapatan", value = userDetail.pendapatan)
+            IncomeCard(title = "Pendapatan", value = survey?.pendapatan.toString())
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -100,8 +122,13 @@ fun UserDetailPage(
                         color = Color.Gray
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    userDetail.pengeluaran.forEach { (label, value) ->
-                        DetailSection(label, value)
+                    survey?.let {
+                        DetailSection(label = "Makanan", value = it.makanan.toString())
+                        DetailSection(label = "Pendidikan", value = it.pendidikan.toString())
+                        DetailSection(label = "Kesehatan", value = it.kesehatan.toString())
+                        DetailSection(label = "Pajak Transportasi", value = it.pajak_transportasi.toString())
+                        DetailSection(label = "PBB", value = it.pajak_pbb.toString())
+                        DetailSection(label = "Listrik", value = it.listrik_per_bulan.toString())
                     }
                 }
             }
@@ -123,9 +150,9 @@ fun UserDetailPage(
                         color = Color.Gray
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    userDetail.aksesLayanan.forEach { (label, hasAccess) ->
-                        AksesLayananItem(label, hasAccess)
-                    }
+//                    userDetail.aksesLayanan.forEach { (label, hasAccess) ->
+//                        AksesLayananItem(label, hasAccess)
+//                    }
                 }
             }
         }
@@ -156,5 +183,5 @@ fun PreviewUserDetailPage() {
         pengeluaran = pengeluaran,
         aksesLayanan = aksesLayanan
     )
-    UserDetailPage(userDetail, navController)
+//    UserDetailPage(userDetail, navController)
 }

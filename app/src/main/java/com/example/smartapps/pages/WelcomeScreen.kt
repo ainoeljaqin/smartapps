@@ -10,23 +10,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.smartapps.R
 import com.example.smartapps.components.SubmitButton
+import com.example.smartapps.pages.HomeScreen
 import com.example.smartapps.ui.theme.PrimaryButtonColor
+import com.example.smartapps.ui.theme.SmartappsTheme
 import com.google.accompanist.pager.*
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun WelcomeScreen(navController: NavController) {
     val pagerState = rememberPagerState()
-    val coroutineScope = rememberCoroutineScope()
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -128,5 +130,14 @@ fun WelcomeScreen(navController: NavController) {
                 modifier = Modifier.clickable(onClick = { navController.navigate("register") })
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomeScreenPreview() {
+    SmartappsTheme {
+        val navController = rememberNavController()
+        HomeScreen  (navController)
     }
 }

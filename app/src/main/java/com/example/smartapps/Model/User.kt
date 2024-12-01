@@ -12,6 +12,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,9 +26,15 @@ import com.example.smartapps.pages.Admin.BlueColor
 import com.example.smartapps.pages.Admin.WhiteColor
 
 data class User(
-    val name: String,
+    val id: Int,
+    val username: String,
     val email: String,
-    val status: String
+    val role: String,
+)
+
+data class TokenResponse(
+    val access: String,
+    val refresh: String
 )
 
 data class UserDetail(
@@ -54,11 +65,13 @@ fun UserRow(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                Text(text = user.name, style = MaterialTheme.typography.titleMedium, color = BlueColor)
+                Text(text = user.username, style = MaterialTheme.typography.titleMedium, color = BlueColor)
                 Text(text = user.email, style = MaterialTheme.typography.bodyMedium, color = Color.Gray)
             }
             TextButton(
-                onClick = { navController.navigate("detail_admin") },
+                onClick = {
+                    navController.navigate("detail_admin/${user.id}") // Pass user id to the detail screen
+                },
                 modifier = Modifier.padding(2.dp),
                 colors = ButtonDefaults.textButtonColors(
                     containerColor = Color(0xFFD7EDFF),
@@ -75,3 +88,4 @@ fun UserRow(
         }
     }
 }
+

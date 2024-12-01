@@ -281,7 +281,7 @@ fun ServiceAccessSurveyScreen(navController: NavController) {
                 onClick = { navController.navigate("home") },
                 onClickBack = { navController.navigate("expense_survey") }
             )
-        }
+        },
     ) { innerPadding ->
         Column(
             modifier = Modifier

@@ -49,17 +49,17 @@ fun HomeScreen(navController: NavController) {
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = PrimaryButtonColor)
         ){
-            Text(text = "Survey Form")
+            Text(text = "Mulai Survey!")
         }
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Reminder Settings Button
+        // Profile Button
         Button(
-            onClick = { navController.navigate("set_reminder") },
+            onClick = { navController.navigate("profile") },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = PrimaryButtonColor)
         ){
-            Text(text = "Reminder Settings")
+            Text(text = "Profile")
         }
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -73,13 +73,14 @@ fun HomeScreen(navController: NavController) {
         }
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Profile Button
+        // Reminder Settings Button
         Button(
-            onClick = { navController.navigate("profile") },
+            onClick = { navController.navigate("set_reminder") },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = PrimaryButtonColor)
         ){
-            Text(text = "Profile")
+            Text(text = "Settings")
         }
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }

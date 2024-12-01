@@ -1,6 +1,7 @@
 package com.example.smartapps.pages.Login
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -13,12 +14,18 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.smartapps.Model.UserViewModel
 import com.example.smartapps.components.SubmitButton
 
 @Composable
-fun LoginScreen(navController: NavController) {
-    var email by remember { mutableStateOf("") }
+fun LoginScreen(
+    navController: NavController,
+    viewModel: UserViewModel,
+    onLoginSuccess: (String) -> Unit
+) {
+    var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
 
     Column(
         modifier = Modifier
@@ -37,9 +44,9 @@ fun LoginScreen(navController: NavController) {
         )
 
         OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") },
+            value = username,
+            onValueChange = { username = it },
+            label = { Text("Username") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
@@ -60,14 +67,14 @@ fun LoginScreen(navController: NavController) {
         SubmitButton(
             text = "Login",
             onClick = {
-                if (email=="user" && password=="user"){
-                    navController.navigate("home")
-                } else if (email=="admin" && password=="admin") {
-                    navController.navigate("dasboard_admin")
+                viewModel.login(username, password, onLoginSuccess) {
+                    errorMessage = it
                 }
-
             }
         )
+        errorMessage?.let {
+            Text(it, color = MaterialTheme.colorScheme.error)
+        }
 
         Spacer(modifier = Modifier.height(8.dp))
 

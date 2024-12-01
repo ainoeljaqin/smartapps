@@ -16,18 +16,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.smartapps.R
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.smartapps.components.BackButton
 import com.example.smartapps.components.SubmitButton
+import com.example.smartapps.ui.theme.SmartappsTheme
 
 
 @Composable
 fun ProfileScreen(navController: NavController) {
-    var textPhoneNumber by remember { mutableStateOf("") }
-    var textEmail by remember { mutableStateOf("") }
+    var textPhoneNumber by remember { mutableStateOf("+6281234567890") }
+    var textEmail by remember { mutableStateOf("mrbeanisfunny@gmail.com") }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -146,5 +149,15 @@ fun ProfileScreen(navController: NavController) {
             text = "Cancel",
             onClickBack = { navController.navigate("home") }
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomeScreenPreview() {
+    SmartappsTheme {
+        val navController = rememberNavController()
+
+        ProfileScreen(navController)
     }
 }
