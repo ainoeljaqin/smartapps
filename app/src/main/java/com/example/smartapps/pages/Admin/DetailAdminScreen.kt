@@ -1,6 +1,7 @@
 package com.example.smartapps.pages.Admin
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -20,13 +21,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.smartapps.Model.Survey
-import com.example.smartapps.Model.UserDetail
-import com.example.smartapps.Model.UserViewModel
+import com.example.smartapps.Models.Survey
+import com.example.smartapps.Models.UserDetail
+import com.example.smartapps.Views.UserViewModel
 import com.example.smartapps.components.BackButton
+import com.example.smartapps.components.admin.AksesLayananItem
 import com.example.smartapps.components.admin.IncomeCard
 import com.example.smartapps.components.admin.DetailSection
-import com.example.smartapps.components.admin.AksesLayananItem
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -60,101 +61,104 @@ fun UserDetailPage(
             BackButton(text = "Cancel", onClickBack = { navController.navigate("dasboard_admin") })
         }
     ) { padding ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(16.dp)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Card(
-                shape = RoundedCornerShape(8.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = Color.White)
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            Icons.Default.AccountCircle,
-                            contentDescription = "User Icon",
-                            tint = Color(0xFF2196F3),
-                            modifier = Modifier.size(40.dp)
-                        )
-                        Spacer(modifier = Modifier.width(12.dp))
-                        Column {
-                            survey?.let {
-                                Text(
-                                    text = it.nama_lengkap,
-                                    fontSize = 24.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color(0xFF2196F3)
-                                )
-
-                                Text(
-                                    text = it.pekerjaan,
-                                    fontSize = 16.sp,
-                                    color = Color.Gray
-                                )
+            item {
+                Card(
+                    shape = RoundedCornerShape(8.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(containerColor = Color.White)
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                Icons.Default.AccountCircle,
+                                contentDescription = "User Icon",
+                                tint = Color(0xFF2196F3),
+                                modifier = Modifier.size(40.dp)
+                            )
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Column {
+                                survey?.let {
+                                    Text(
+                                        text = it.name,
+                                        fontSize = 24.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color(0xFF2196F3)
+                                    )
+                                    Text(
+                                        text = it.job,
+                                        fontSize = 16.sp,
+                                        color = Color.Gray
+                                    )
+                                }
                             }
                         }
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            item { survey?.let { IncomeCard(title = "Pendapatan", value = it.income) } }
 
-            IncomeCard(title = "Pendapatan", value = survey?.pendapatan.toString())
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Pengeluaran Section
-            Card(
-                shape = RoundedCornerShape(8.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = Color.White)
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text(
-                        text = "Pengeluaran",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Gray
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    survey?.let {
-                        DetailSection(label = "Makanan", value = it.makanan.toString())
-                        DetailSection(label = "Pendidikan", value = it.pendidikan.toString())
-                        DetailSection(label = "Kesehatan", value = it.kesehatan.toString())
-                        DetailSection(label = "Pajak Transportasi", value = it.pajak_transportasi.toString())
-                        DetailSection(label = "PBB", value = it.pajak_pbb.toString())
-                        DetailSection(label = "Listrik", value = it.listrik_per_bulan.toString())
+            item {
+                Card(
+                    shape = RoundedCornerShape(8.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(containerColor = Color.White)
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = "Pengeluaran",
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Gray
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        survey?.let {
+                            DetailSection(label = "Makanan", value = it.foodExpense)
+                            DetailSection(label = "Pendidikan", value = it.educationExpense)
+                            DetailSection(label = "Kesehatan", value = it.healthExpense)
+                            DetailSection(label = "Pajak Transportasi", value = it.transportationTaxExpense)
+                            DetailSection(label = "PBB", value = it.pbbTaxExpense)
+                            DetailSection(label = "Listrik", value = it.electricityExpense)
+                        }
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Akses Layanan Section
-            Card(
-                shape = RoundedCornerShape(8.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = Color.White)
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text(
-                        text = "Akses Layanan",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Gray
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-//                    userDetail.aksesLayanan.forEach { (label, hasAccess) ->
-//                        AksesLayananItem(label, hasAccess)
-//                    }
+            item {
+                Card(
+                    shape = RoundedCornerShape(8.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(containerColor = Color.White)
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = "Akses Layanan",
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Gray
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        survey?.let {
+                            AksesLayananItem("Layanan Keuangan", it.financialServiceAccess)
+                            AksesLayananItem("Layanan Kesehatan", it.healthServiceAccess)
+                            AksesLayananItem("Bantuan Pemerintah", it.governmentAssistance)
+                        }
+                    }
                 }
             }
+
+            // Tingkat Ekonomi hasil klasifikasi
+            item { survey?.let { IncomeCard(title = "Tingkat Ekonomi", value = it.economicLevel) } }
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.smartapps.pages
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -12,20 +13,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.smartapps.Models.Survey
 import com.example.smartapps.components.DropdownInputField
 import com.example.smartapps.components.BottomNavigationBar
 import com.example.smartapps.components.CheckboxWithLabel
+import androidx.compose.ui.platform.LocalContext
+import com.example.smartapps.Views.UserViewModel
+import java.lang.Error
 
 @Composable
-fun JobSurveyScreen(navController: NavController) {
+fun JobSurveyScreen(
+    navController: NavController,
+    viewModel: UserViewModel,
+) {
     var selectedJob by remember { mutableStateOf("") }
-
-    val jobOptions = listOf(
-        "< Rp.2.000.000",
-        "Rp.2.000.000 - Rp.3.000.000",
-        "Rp.3.000.000 - Rp.5.000.000",
-        "> Rp.5.000.000",
-    )
 
     Scaffold(
         bottomBar = {
@@ -59,28 +60,27 @@ fun JobSurveyScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Dropdown for Income
-            DropdownInputField(
-                label = "Select",
-                selectedOption = selectedJob,
-                options = jobOptions,
-                onOptionSelected = { selectedJob = it }
+            // Input for Income
+            OutlinedTextField(
+                value = selectedJob,
+                onValueChange = {
+                    selectedJob = it
+                    viewModel.job = it
+                },
+                label = { Text("Tulis Pekerjaan anda disini") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
             )
-
         }
     }
 }
 
 @Composable
-fun IncomeSurveyScreen(navController: NavController) {
+fun IncomeSurveyScreen(
+    navController: NavController,
+    viewModel: UserViewModel,
+) {
     var selectedIncome by remember { mutableStateOf("") }
-
-    val incomeOptions = listOf(
-        "< Rp.2.000.000",
-        "Rp.2.000.000 - Rp.3.000.000",
-        "Rp.3.000.000 - Rp.5.000.000",
-        "> Rp.5.000.000",
-    )
 
     Scaffold(
         bottomBar = {
@@ -114,12 +114,16 @@ fun IncomeSurveyScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Dropdown for Income
-            DropdownInputField(
-                label = "Select",
-                selectedOption = selectedIncome,
-                options = incomeOptions,
-                onOptionSelected = { selectedIncome = it }
+            // Input for Income
+            OutlinedTextField(
+                value = selectedIncome,
+                onValueChange = {
+                    selectedIncome = it
+                    viewModel.income = it
+                },
+                label = { Text("Pendapatan per bulan") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
             )
 
         }
@@ -127,7 +131,10 @@ fun IncomeSurveyScreen(navController: NavController) {
 }
 
 @Composable
-fun ExpenseSurveyScreen(navController: NavController) {
+fun ExpenseSurveyScreen(
+    navController: NavController,
+    viewModel: UserViewModel,
+) {
     // State for all dropdown
     var selectedFood by remember { mutableStateOf("") }
     var selectedEducation by remember { mutableStateOf("") }
@@ -135,44 +142,6 @@ fun ExpenseSurveyScreen(navController: NavController) {
     var selectedTransportationTax by remember { mutableStateOf("") }
     var selectedPBBTax by remember { mutableStateOf("") }
     var selectedElecttricity by remember { mutableStateOf("") }
-
-    // List dropdown
-    val expensesOptionsFood = listOf(
-        "< Rp.2.000.000",
-        "Rp.2.000.000 - Rp.3.000.000",
-        "Rp.3.000.000 - Rp.5.000.000",
-        "> Rp.5.000.000",
-    )
-    val expensesOptionsEducation = listOf(
-        "< Rp.2.000.000",
-        "Rp.2.000.000 - Rp.3.000.000",
-        "Rp.3.000.000 - Rp.5.000.000",
-        "> Rp.5.000.000",
-    )
-    val expensesOptionsHealth = listOf(
-        "< Rp.2.000.000",
-        "Rp.2.000.000 - Rp.3.000.000",
-        "Rp.3.000.000 - Rp.5.000.000",
-        "> Rp.5.000.000",
-    )
-    val optionsTransportationTax = listOf(
-        "< Rp.250.000",
-        "Rp.250.000 - Rp.500.000",
-        "Rp.500.000 - Rp.1.000.000",
-        "> Rp.1.000.000",
-    )
-    val optionsPBBTax = listOf(
-        "< Rp.2.000.000",
-        "Rp.2.000.000 - Rp.3.000.000",
-        "Rp.3.000.000 - Rp.5.000.000",
-        "> Rp.5.000.000",
-    )
-    val optionsElectricity = listOf(
-        "< Rp.50.000",
-        "Rp.50.000 - Rp.150.000",
-        "Rp.150.000 - Rp.250.000",
-        "> Rp.250.000",
-    )
 
     Scaffold(
         bottomBar = {
@@ -206,62 +175,86 @@ fun ExpenseSurveyScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Dropdown for Food
-            DropdownInputField(
-                label = "Makanan",
-                selectedOption = selectedFood,
-                options = expensesOptionsFood,
-                onOptionSelected = { selectedFood = it }
+            // Input for Food
+            OutlinedTextField(
+                value = selectedFood,
+                onValueChange = {
+                    selectedFood = it
+                    viewModel.foodExpense = it
+                },
+                label = { Text("kira2 pengeluaran makanan per bulan") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Dropdown for Education
-            DropdownInputField(
-                label = "Pendidikan",
-                selectedOption = selectedEducation,
-                options = expensesOptionsEducation,
-                onOptionSelected = { selectedEducation = it }
+            // Input for Education
+            OutlinedTextField(
+                value = selectedEducation,
+                onValueChange = {
+                    selectedEducation = it
+                    viewModel.educationExpense = it
+                },
+                label = { Text("kira2 pengeluaran pendidikan per bulan") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Dropdown for Health
-            DropdownInputField(
-                label = "Kesehatan",
-                selectedOption = selectedHealth,
-                options = expensesOptionsHealth,
-                onOptionSelected = { selectedHealth = it }
+            // Input for Health
+            OutlinedTextField(
+                value = selectedHealth,
+                onValueChange = {
+                    selectedHealth = it
+                    viewModel.healthExpense = it
+                },
+                label = { Text("kira2 pengeluaran biaya kesehatan per bulan") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Dropdown for Transportation Tax
-            DropdownInputField(
-                label = "Pajak Transportasi",
-                selectedOption = selectedTransportationTax,
-                options = optionsTransportationTax,
-                onOptionSelected = { selectedTransportationTax = it }
+            // Input for Transportation Tax
+            OutlinedTextField(
+                value = selectedTransportationTax,
+                onValueChange = {
+                    selectedTransportationTax = it
+                    viewModel.transportationTaxExpense = it
+                },
+                label = { Text("biaya pengeluaran kendaraan & pajak") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Dropdown for PBB Tax
-            DropdownInputField(
-                label = "Pajak PBB",
-                selectedOption = selectedPBBTax,
-                options = optionsPBBTax,
-                onOptionSelected = { selectedPBBTax = it }
+            // Input for PBB Tax
+            OutlinedTextField(
+                value = selectedPBBTax,
+                onValueChange = {
+                    selectedPBBTax = it
+                    viewModel.pbbTaxExpense = it
+                },
+                label = { Text("biaya pajak bangunan") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Dropdown for Electricity
-            DropdownInputField(
-                label = "Listrik per bulan",
-                selectedOption = selectedElecttricity,
-                options = optionsElectricity,
-                onOptionSelected = { selectedElecttricity = it }
+            // Input for Electricity
+            OutlinedTextField(
+                value = selectedElecttricity,
+                onValueChange = {
+                    selectedElecttricity = it
+                    viewModel.electricityExpense = it
+                },
+                label = { Text("biaya listrik per bulan") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -270,15 +263,35 @@ fun ExpenseSurveyScreen(navController: NavController) {
 }
 
 @Composable
-fun ServiceAccessSurveyScreen(navController: NavController) {
+fun ServiceAccessSurveyScreen(
+    navController: NavController,
+    viewModel: UserViewModel,
+    onSuccess: (Survey) -> Unit,
+    onError: (String) -> Unit
+) {
     var aksesKeuangan by remember { mutableStateOf(false) }
     var aksesKesehatan by remember { mutableStateOf(false) }
     var bantuanPemerintah by remember { mutableStateOf(false) }
 
+    val context = LocalContext.current
+
     Scaffold(
         bottomBar = {
             BottomNavigationBar(
-                onClick = { navController.navigate("home") },
+                onClick = {
+                    val surveyData = viewModel.getSurveyData()
+                    viewModel.postUserSurvey(surveyData,
+                        onSuccess = {
+                            // Tampilkan Toast sukses dan navigasi ke home
+                            Toast.makeText(context, "Survey berhasil dikirim", Toast.LENGTH_SHORT).show()
+                            navController.navigate("home") // Navigasi ke halaman home
+                        },
+                        onError = { error ->
+                            // Tampilkan Toast error
+                            Toast.makeText(context, "Error: $error", Toast.LENGTH_SHORT).show()
+                        }
+                    )
+                },
                 onClickBack = { navController.navigate("expense_survey") }
             )
         },
@@ -310,19 +323,28 @@ fun ServiceAccessSurveyScreen(navController: NavController) {
             CheckboxWithLabel(
                 label = "Akses terhadap layanan keuangan.",
                 isChecked = aksesKeuangan,
-                onCheckedChange = { aksesKeuangan = it }
+                onCheckedChange = {
+                    aksesKeuangan = it
+                    viewModel.financialServiceAccess = it
+                }
             )
 
             CheckboxWithLabel(
                 label = "Akses ke layanan kesehatan.",
                 isChecked = aksesKesehatan,
-                onCheckedChange = { aksesKesehatan = it }
+                onCheckedChange = {
+                    aksesKesehatan = it
+                    viewModel.healthServiceAccess = it
+                }
             )
 
             CheckboxWithLabel(
                 label = "Partisipasi dalam program bantuan pemerintah.",
                 isChecked = bantuanPemerintah,
-                onCheckedChange = { bantuanPemerintah = it }
+                onCheckedChange = {
+                    bantuanPemerintah = it
+                    viewModel.governmentAssistance = it
+                }
             )
 
         }

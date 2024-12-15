@@ -14,8 +14,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.smartapps.Model.UserViewModel
 import com.example.smartapps.components.SubmitButton
+import com.example.smartapps.Views.UserViewModel
 
 @Composable
 fun LoginScreen(

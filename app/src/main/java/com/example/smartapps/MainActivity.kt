@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.example.smartapps.Model.UserViewModel
+import com.example.smartapps.Views.UserViewModel
 import com.example.smartapps.networks.MainApp
 import com.example.smartapps.pages.ServiceAccessSurveyScreen
 import com.example.smartapps.ui.theme.SmartappsTheme
@@ -35,6 +35,6 @@ fun HomeScreenPreview() {
 //        HomeScreen(navController)
 //        IncomeSurveyScreen(navController)
 //        ExpenseSurveyScreen(navController)
-        ServiceAccessSurveyScreen(navController)
+//        ServiceAccessSurveyScreen(navController)
     }
 }

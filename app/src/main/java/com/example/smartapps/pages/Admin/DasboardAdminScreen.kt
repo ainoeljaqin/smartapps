@@ -13,12 +13,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.smartapps.Model.User
-import com.example.smartapps.Model.UserRow
-import com.example.smartapps.Model.UserViewModel
+import com.example.smartapps.Models.UserRow
+import com.example.smartapps.Views.UserViewModel
 
 val BlueColor = Color(0xFF2196F3)
 val WhiteColor = Color.White

@@ -9,9 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.smartapps.Model.User
-import com.example.smartapps.Model.UserDetail
-import com.example.smartapps.Model.UserViewModel
+import com.example.smartapps.Models.UserDetail
 import com.example.smartapps.pages.Admin.AdminDashboard
 import com.example.smartapps.pages.Admin.UserDetailPage
 
@@ -27,7 +25,8 @@ import com.example.smartapps.pages.Register.RegisterScreen
 import com.example.smartapps.pages.ServiceAccessSurveyScreen
 import com.example.smartapps.ui.theme.SmartappsTheme
 import androidx.compose.ui.platform.LocalContext
-
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.smartapps.Views.UserViewModel
 
 
 @Composable
@@ -36,12 +35,12 @@ fun MainApp(viewModel: UserViewModel) {
     val context = LocalContext.current
 
 
-    val users = listOf(
-        User(1, "Alice", "alice@example.com", "user"),
-        User(2, "Bob", "bob@example.com", "user"),
-        User(3, "Charlie", "charlie@example.com", "user"),
-        User(4, "Dave", "dave@example.com", "user")
-    )
+//    val users = listOf(
+//        User(1, "Alice", "alice@example.com", "user"),
+//        User(2, "Bob", "bob@example.com", "user"),
+//        User(3, "Charlie", "charlie@example.com", "user"),
+//        User(4, "Dave", "dave@example.com", "user")
+//    )
 
     val pengeluaran = mapOf(
         "Makanan" to "Rp 1,000,000",
@@ -84,7 +83,7 @@ fun MainApp(viewModel: UserViewModel) {
                 composable("login") {
                     LoginScreen(navController, viewModel) { token ->
                         viewModel.fetchUser(onSuccess = { user ->
-                            if (user.role == "admin") {
+                            if (user.is_staff) {
                                 navController.navigate("dashboard_admin")
                             } else {
                                 navController.navigate("home")
@@ -99,10 +98,17 @@ fun MainApp(viewModel: UserViewModel) {
                 composable("profile") { ProfileScreen(navController) }
                 composable("set_reminder") { SetReminderScreen() }
                 composable("map") { MapScreen(navController) }
-                composable("job_survey") { JobSurveyScreen(navController) }
-                composable("income_survey") { IncomeSurveyScreen(navController) }
-                composable("expense_survey") { ExpenseSurveyScreen(navController) }
-                composable("service_access_survey") { ServiceAccessSurveyScreen(navController) }
+                composable("job_survey") { JobSurveyScreen(navController, viewModel) }
+                composable("income_survey") { IncomeSurveyScreen(navController, viewModel) }
+                composable("expense_survey") { ExpenseSurveyScreen(navController, viewModel) }
+                composable("service_access_survey") {
+                    ServiceAccessSurveyScreen(
+                        navController = navController,
+                        viewModel = viewModel,
+                        onSuccess = { message -> /* Tindakan jika sukses */ },
+                        onError = { error -> /* Tindakan jika error */ }
+                    )
+                }
                 composable("dashboard_admin") { AdminDashboard(viewModel, navController) }
                 composable("detail_admin/{userId}") { backStackEntry ->
                     val userId = backStackEntry.arguments?.getString("userId")?.toInt() ?: return@composable

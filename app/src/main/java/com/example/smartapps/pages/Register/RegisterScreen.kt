@@ -14,7 +14,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.smartapps.Model.UserViewModel
+import com.example.smartapps.Views.UserViewModel
 import com.example.smartapps.components.SubmitButton
 
 @Composable
@@ -92,7 +92,7 @@ fun RegisterScreen(
             text = "Register",
             onClick = {
                 if (password == confirmPassword) {
-                    viewModel.register(username, email, password, role, onRegisterSuccess)
+                    viewModel.register(username, email, password, onRegisterSuccess)
                 } else {
                     errorMessage = "Password do not match"
                 }
